@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:layout_marginBottom="10dp"
+    android:padding="1dp">
+
+    <ImageView
+        android:id="@+id/app_cover"
+        android:layout_width="150dp"
+        android:layout_height="84dp"
+        android:contentDescription="cover"
+        android:scaleType="fitCenter"
+        tools:srcCompat="@mipmap/default_cover" />
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginTop="88dp"
+        android:orientation="horizontal"
+        android:layout_width="150dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_weight="3"
+            android:id="@+id/item_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            tools:text="Test" />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/runCount"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            tools:text="1/3" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/icon_use_gamepad"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="110dp"
+        app:srcCompat="@mipmap/handle" />
+
+</FrameLayout>

@@ -1,0 +1,17 @@
+<resources>
+    <string name="msg_setup_serveraddr_empty">Failed to set server address, address is empty</string>
+    <string name="msg_setup_serveraddr">Set the server address to: %1$s</string>
+    <string name="msg_setup_serveraddr_request">Please set the server address first.</string>
+    <string name="msg_parse_serveraddr_failed">Parse server address failed</string>
+    <string name="msg_request_token_failed">Get token failed: %1$s</string>
+    <string name="msg_request_token_failed_request_failed">Get token failed: request failed.</string>
+    <string name="msg_request_failed">Request failed.</string>
+    <string name="msg_request_parse_result_failed">Parse result failed.</string>
+    <string name="msg_request_enterappli_failed">Entering application failed: %1$s</string>
+    <string name="msg_request_enterappli_failed_miss_param">Entering application failed: Missing parameters: %1$s</string>
+    <string name="msg_check_serveraddr_failed">Failed to resolve server address. Please click the settings button in the lower right corner to set the correct server address.</string>
+    <string name="msg_get_appli_info_failed">Failed to get the app list. Please click the settings button in the lower right corner to check if the server address is correct.</string>
+    <string name="msg_rtc_enter_first_person_mode">Enter first person mode</string>
+    <string name="msg_rtc_close">Disconnected</string>
+    <string name="msg_rtc_nooperation_timeout">No operation exceeds the system setting time, close the connection.</string>
+</resources>

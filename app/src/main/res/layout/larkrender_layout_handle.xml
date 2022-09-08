@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_handle"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/handle_button_up"
+            style="@style/CloudLarkHandleButton"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="W" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/handle_button_left"
+            style="@style/CloudLarkHandleButton"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:text="A" />
+
+        <Button
+            android:id="@+id/handle_button_right"
+            style="@style/CloudLarkHandleButton"
+            android:layout_gravity="end"
+            android:text="D" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/handle_button_down"
+            style="@style/CloudLarkHandleButton"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="S" />
+    </FrameLayout>
+</LinearLayout>

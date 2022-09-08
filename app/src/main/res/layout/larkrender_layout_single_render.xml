@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/single_render_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:background="@android:color/background_dark"
+    android:keepScreenOn="true"
+    android:padding="0dp"
+    tools:context=".RtcActivity">
+
+    <com.pxy.lib_sr.render.RtcRender
+        android:id="@+id/signal_render"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_margin="0dp"
+        android:background="@android:color/transparent"
+        android:padding="0dp" />
+
+    <include
+        android:id="@+id/vcursor"
+        layout="@layout/larkrender_layout_vcursor_withmouse"
+        android:visibility="invisible"></include>
+
+    <include
+        android:id="@+id/layout_menu"
+        layout="@layout/larkrender_layout_menu"
+        tools:visibility="invisible"></include>
+
+    <View
+        android:id="@+id/touchPoint"
+        android:layout_width="6dp"
+        android:layout_height="6dp"
+        android:background="@drawable/cloudlark_circle"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/textureView_test_capture"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:visibility="invisible"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        tools:visibility="invisible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/handle"
+                layout="@layout/larkrender_layout_handle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_weight="0"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <android.inputmethodservice.KeyboardView
+                android:id="@+id/keyboardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:background="@color/colorTransparentDark"
+                android:keyBackground="@drawable/hight_light_button"
+                android:keyPreviewLayout="@layout/larkrender_layout_keypreview"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:keyTextColor="#fff"
+                android:keyTextSize="16sp"
+                android:labelTextSize="12sp"
+                android:shadowColor="#FFFFFF"
+                android:shadowRadius="0.0"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <include
+                android:id="@+id/softJoystick"
+                layout="@layout/larkrender_layout_rocker"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="0"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/control_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_margin="0dp"
+            android:background="@color/colorTransparentDark"
+            android:keepScreenOn="false"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:visibility="visible">
+
+            <ImageButton
+                android:id="@+id/toggle_control_button"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored.CloudLarkDark.Image"
+                android:layout_height="match_parent"
+                android:onClick="onToggleControlBar"
+                android:scaleType="fitCenter"
+                app:srcCompat="@mipmap/cloudlark_arror_right_white" />
+
+            <Button
+                android:id="@+id/button_keyboard"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored.CloudLarkDark"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:onClick="onKeyBoard"
+                android:text="@string/ui_button_keyboard" />
+
+            <Button
+                android:id="@+id/button_handle"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored.CloudLarkDark"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:onClick="onToggleHandleAndRocker"
+                android:text="@string/ui_button_handle" />
+
+            <Button
+                android:id="@+id/button_vmouse"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored.CloudLarkDark"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:onClick="onToggleVmouse"
+                android:text="@string/ui_button_vmouse" />
+
+            <Button
+                android:id="@+id/button_menu"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored.CloudLarkDark"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:onClick="onToggleMenu"
+                android:text="@string/ui_menu" />
+
+            <Button
+                android:id="@+id/button_test_capture"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored.CloudLarkDark"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:onClick="onTestCaptureVideoFrame"
+                android:text="TestCapture"
+                android:visibility="invisible" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/backButton"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored.CloudLarkDark"
+                    android:layout_gravity="end"
+                    android:layout_margin="0dp"
+                    android:onClick="onQuit"
+                    android:text="@string/ui_button_back" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

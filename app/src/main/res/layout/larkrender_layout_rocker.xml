@@ -1,0 +1,20 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_rocker"
+    android:layout_width="120dp"
+    android:layout_height="120dp">
+
+    <View
+        android:id="@+id/rocker_bg"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/cloudlark_rocker_bg" />
+
+    <View
+        android:id="@+id/rocker_pointer"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@drawable/cloudlark_rocker_pointer" />
+
+
+</FrameLayout>

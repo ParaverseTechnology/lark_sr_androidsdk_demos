@@ -1,0 +1,3 @@
+rootProject.name = "LarkSR"
+include ':app'
+include ':vrmonitor'

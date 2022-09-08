@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+    <Key
+        name = "UP"
+        code = "1"
+        winKeyName = "KEYCODE_ARROW_UP"
+        winKeyCode = "38"
+    />
+    <Key
+        name = "LEFT"
+        code = "2"
+        winKeyName = "KEYCODE_ARROW_LETT"
+        winKeyCode = "37"
+    />
+    <Key
+        name = "RIGHT"
+        code = "3"
+        winKeyName = "KEYCODE_ARROW_RIGHT"
+        winKeyCode = "39"
+    />
+    <Key
+        name = "DOWN"
+        code = "4"
+        winKeyName = "KEYCODE_ARROW_DOWN"
+        winKeyCode = "40"
+    />
+    <Key
+        name = "CENTER"
+        code = "5"
+        winKeyName = "KEYCODE_ENTER"
+        winKeyCode = "13"
+    />
+</xml>

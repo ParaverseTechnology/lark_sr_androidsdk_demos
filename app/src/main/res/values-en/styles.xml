@@ -1,0 +1,52 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Widget.AppCompat.Button.Borderless.Colored.Dark">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <style name="Widget.AppCompat.Button.Borderless.Colored.Dark.Image">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+    <style name="Widget.AppCompat.Button.Borderless.Colored.CloudLarkDark">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <style name="Widget.AppCompat.Button.Borderless.Colored.CloudLarkDark.Image">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+    <style name="CloudLarkHandleButton">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:background">@drawable/cloudlark_corners_dark</item>
+    </style>
+</resources>

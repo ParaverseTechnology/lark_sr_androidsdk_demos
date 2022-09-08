@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 全键盘带数字小键盘 -->
+<Keyboard
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:horizontalGap="1.0dp"
+    android:verticalGap="1.0dp"
+    android:keyHeight="40dp"
+    android:keyWidth="30dp">
+    <Row>
+        <Key
+            android:codes="112"
+            android:keyLabel="F1" />
+        <Key
+            android:codes="113"
+            android:keyLabel="F2" />
+        <Key
+            android:codes="114"
+            android:keyLabel="F3" />
+        <Key
+            android:codes="115"
+            android:keyLabel="F4" />
+        <Key
+            android:codes="116"
+            android:keyLabel="F5" />
+        <Key
+            android:codes="117"
+            android:keyLabel="F6" />
+        <Key
+            android:codes="118"
+            android:keyLabel="F7" />
+        <Key
+            android:codes="119"
+            android:keyLabel="F8" />
+        <Key
+            android:codes="120"
+            android:keyLabel="F9" />
+        <Key
+            android:codes="121"
+            android:keyLabel="F10" />
+    </Row>
+    <Row>
+        <Key
+            android:codes="27"
+            android:keyLabel="Escape"
+            android:keyWidth="66.0dp" />
+        <Key
+            android:codes="122"
+            android:keyLabel="F11" />
+        <Key
+            android:codes="123"
+            android:keyLabel="F12" />
+        <Key
+            android:codes="189"
+            android:keyLabel="-" />
+        <Key
+            android:codes="187"
+            android:keyLabel="+=" />
+        <Key
+            android:codes="192"
+            android:keyLabel="`" />
+        <Key
+            android:codes="219"
+            android:keyLabel="["/>
+        <Key
+            android:codes="221"
+            android:keyLabel="]"/>
+        <Key
+            android:codes="8"
+            android:keyLabel="Backspace"
+            android:isRepeatable="true"
+            android:keyWidth="80.0dp"/>
+    </Row>
+    <Row>
+        <Key
+            android:codes="49"
+            android:keyLabel="1 !" />
+        <Key
+            android:codes="50"
+            android:keyLabel="2 @"/>
+        <Key
+            android:codes="51"
+            android:keyLabel="3 #"/>
+        <Key
+            android:codes="52"
+            android:keyLabel="4 $"/>
+        <Key
+            android:codes="53"
+            android:keyLabel="5 %"/>
+        <Key
+            android:codes="54"
+            android:keyLabel="6 ^"/>
+        <Key
+            android:codes="55"
+            android:keyLabel="7 &amp;"/>
+        <Key
+            android:codes="56"
+            android:keyLabel="8 *"/>
+        <Key
+            android:codes="57"
+            android:keyLabel="9 ("/>
+        <Key
+            android:codes="48"
+            android:keyLabel="0 )"/>
+    </Row>
+    <Row>
+        <Key
+            android:codes="-1"
+            android:keyLabel="Switch"
+            android:keyWidth="66.0dp"/>
+        <Key
+            android:codes="161"
+            android:keyLabel="Shift"/>
+        <Key
+            android:codes="220"
+            android:keyLabel="\\|"/>
+        <Key
+            android:codes="191"
+            android:keyLabel="/"/>
+        <Key
+            android:codes="186"
+            android:keyLabel=";"/>
+        <Key
+            android:codes="222"
+            android:keyLabel="'"/>
+        <Key
+            android:codes="188"
+            android:keyLabel=","/>
+        <Key
+            android:codes="190"
+            android:keyLabel="."/>
+    </Row>
+</Keyboard>

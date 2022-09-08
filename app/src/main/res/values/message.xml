@@ -1,0 +1,17 @@
+<resources>
+    <string name="msg_setup_serveraddr_empty">设置服务器地址失败，地址为空</string>
+    <string name="msg_setup_serveraddr">设置服务器地址为: %1$s</string>
+    <string name="msg_setup_serveraddr_request">请先设置服务器地址</string>
+    <string name="msg_parse_serveraddr_failed">解析服务器地址失败</string>
+    <string name="msg_request_token_failed">获取 Token 失败: %1$s</string>
+    <string name="msg_request_token_failed_request_failed">获取 Token 失败: 请求失败.</string>
+    <string name="msg_request_failed">请求失败.</string>
+    <string name="msg_request_parse_result_failed">解析数据格式失败.</string>
+    <string name="msg_request_enterappli_failed">进入课程失败: %1$s</string>
+    <string name="msg_request_enterappli_failed_miss_param">进入应用失败. 缺少参数：%1$s</string>
+    <string name="msg_check_serveraddr_failed">解析服务器地址失败.请点击右下角设置按钮，设置正确的服务器地址</string>
+    <string name="msg_get_appli_info_failed">获取应用失败. 请点击右下角设置按钮，检查服务器地址是否正确</string>
+    <string name="msg_rtc_enter_first_person_mode">进入第一人称模式</string>
+    <string name="msg_rtc_close">已断开连接</string>
+    <string name="msg_rtc_nooperation_timeout">超过系统设定时间无操作，关闭连接。</string>
+</resources>

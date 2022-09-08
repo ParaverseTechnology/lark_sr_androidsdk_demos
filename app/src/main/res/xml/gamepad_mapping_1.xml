@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+    <Key
+        name = "KEYCODE_BUTTON_X"
+        code = "99"
+        winKeyName = "KEYCODE_J"
+        winKeyCode = "74"
+        />
+    <Key
+        name = "KEYCODE_BUTTON_Y"
+        code = "100"
+        winKeyName = "KEYCODE_I"
+        winKeyCode = "73"
+        />
+    <Key
+        name = "KEYCODE_BUTTON_A"
+        code = "96"
+        winKeyName = "KEYCODE_K"
+        winKeyCode = "75"
+        />
+    <Key
+        name = "KEYCODE_BUTTON_B"
+        code = "97"
+        winKeyName = "KEYCODE_L"
+        winKeyCode = "76"
+        />
+    <Key
+        name = "KEYCODE_BUTTON_L1"
+        code = "102"
+        winKeyName = "KEYCODE_Q"
+        winKeyCode = "81"
+        />
+    <Key
+        name = "KEYCODE_BUTTON_R1"
+        code = "103"
+        winKeyName = "KEYCODE_SPACE"
+        winKeyCode = "32"
+        />
+</xml>

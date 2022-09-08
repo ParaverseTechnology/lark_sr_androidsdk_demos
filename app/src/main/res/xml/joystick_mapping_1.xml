@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+<!-- key event   -->
+    <Key
+        type = "button"
+        name = "KEYCODE_DPAD_UP"
+        code = "19"
+        winKeyName = "KEYCODE_W"
+        winKeyCode = "87"
+        />
+    <Key
+        type = "button"
+        name = "KEYCODE_DPAD_DOWN"
+        code = "20"
+        winKeyName = "KEYCODE_S"
+        winKeyCode = "83"
+        />
+    <Key
+        type = "button"
+        name = "KEYCODE_DPAD_LEFT"
+        code = "21"
+        winKeyName = "KEYCODE_A"
+        winKeyCode = "65"
+        />
+    <Key
+        type = "button"
+        name = "KEYCODE_DPAD_RIGHT"
+        code = "22"
+        winKeyName = "KEYCODE_D"
+        winKeyCode = "68"
+        />
+    <Key
+        type = "button"
+        name = "KEYCODE_DPAD_CENTER"
+        code = "23"
+        winKeyName = "KEYCODE_ENTER"
+        winKeyCode = "13"
+        />
+<!--  left axis event  -->
+    <key
+        type = "axis"
+        name = "axis_left_x"
+        direction ="positive"
+        winType = "button"
+        winKeyName = "KEYCODE_D"
+        winKeyCode = "68"
+        />
+    <key
+        type = "axis"
+        name = "axis_left_x"
+        direction ="negative"
+        winType = "button"
+        winKeyName = "KEYCODE_A"
+        winKeyCode = "65"
+        />
+    <key
+        type = "axis"
+        name = "axis_left_y"
+        direction ="positive"
+        winType = "button"
+        winKeyName = "KEYCODE_S"
+        winKeyCode = "83"
+        />
+    <key
+        type = "axis"
+        name = "axis_left_y"
+        direction ="negative"
+        winType = "button"
+        winKeyName = "KEYCODE_W"
+        winKeyCode = "87"
+        />
+<!--    right axix event -->
+    <key
+        type = "axis"
+        name = "axis_right_x"
+        direction ="positive"
+        winType = "button"
+        winKeyName = "KEYCODE_ARROW_RIGHT"
+        winKeyCode = "39"
+        />
+    <key
+        type = "axis"
+        name = "axis_right_x"
+        direction ="negative"
+        winType = "button"
+        winKeyName = "KEYCODE_ARROW_LETT"
+        winKeyCode = "37"
+        />
+    <key
+        type = "axis"
+        name = "axis_right_y"
+        direction ="positive"
+        winType = "button"
+        winKeyName = "KEYCODE_ARROW_DOWN"
+        winKeyCode = "40"
+        />
+    <key
+        type = "axis"
+        name = "axis_right_y"
+        direction ="negative"
+        winType = "button"
+        winKeyName = "KEYCODE_ARROW_UP"
+        winKeyCode = "38"
+        />
+<!--  axis left  -->
+    <axis
+        type="left"
+    >
+        <up
+            winKeyName = "KEYCODE_W"
+            winKeyCode = "87"
+        >
+        </up>
+        <down
+            winKeyName = "KEYCODE_S"
+            winKeyCode = "83"
+        >
+
+        </down>
+        <left
+            winKeyName = "KEYCODE_A"
+            winKeyCode = "65"
+        >
+        </left>
+        <right
+            winKeyName = "KEYCODE_D"
+            winKeyCode = "68"
+        >
+        </right>
+    </axis>
+<!-- axis right -->
+    <axis
+        type="right"
+    >
+        <up
+            winKeyName = "KEYCODE_ARROW_UP"
+            winKeyCode = "38"
+            >
+        </up>
+        <down
+            winKeyName = "KEYCODE_ARROW_DOWN"
+            winKeyCode = "40"
+            >
+
+        </down>
+        <left
+            winKeyName = "KEYCODE_ARROW_LETT"
+            winKeyCode = "37"
+            >
+        </left>
+        <right
+            winKeyName = "KEYCODE_ARROW_RIGHT"
+            winKeyCode = "39"
+            >
+        </right>
+    </axis>
+</xml>

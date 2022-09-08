@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tint="?attr/colorControlNormal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@android:color/holo_blue_light"
+        android:fitsSystemWindows="true"
+        app:expanded="false">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:buttonGravity="top"
+            app:subtitle="@string/VERSION_NAME"
+            app:subtitleTextColor="@android:color/background_light"
+            app:title="@string/app_name"
+            app:titleTextColor="@android:color/white">
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:padding="10dp">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/spinner_frame_rate_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_horizontal|center_vertical"
+                    android:text="@string/ui_menu_frame_rate"
+                    android:textAlignment="center" />
+
+                <Spinner
+                    android:id="@+id/spinner_frame_rate"
+                    style="@style/Widget.AppCompat.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/hight_light_button"
+                    android:entries="@array/frameRate"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="center" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/spinner_code_rate_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_horizontal|center_vertical"
+                    android:text="@string/ui_menu_code_rate"
+                    android:textAlignment="center" />
+
+                <Spinner
+                    android:id="@+id/spinner_code_rate"
+                    style="@style/Widget.AppCompat.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/hight_light_button"
+                    android:entries="@array/codeRate"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="center" />
+            </FrameLayout>
+
+            <Switch
+                android:id="@+id/switch_player_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:checked="false"
+                android:text="@string/ui_switch_player_mode_2" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/pinglinear"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#000000"
+                android:text="延迟探测"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Spinner
+                style="@style/Widget.AppCompat.Spinner"
+                android:id="@+id/pingSpinner"
+                android:spinnerMode="dialog"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <com.pxy.demo.larksr.AppListGirdView
+            android:id="@+id/gird_view_app_list"
+            style="@android:style/Widget.DeviceDefault.Light.GridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@color/colorPrimary"
+            android:columnWidth="200dp"
+            android:descendantFocusability="blocksDescendants"
+            android:numColumns="auto_fit"
+            android:padding="10dp"
+            android:verticalSpacing="25dp" />
+        <FrameLayout
+            android:id="@+id/view_empty_app_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/view_empty_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:visibility="visible"
+                android:text="@string/ui_loading" />
+            <TextView
+                android:id="@+id/view_empty_app_list_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:text="@string/ui_applist_empty"
+                android:visibility="gone"></TextView>
+            <LinearLayout
+                android:id="@+id/view_empty_app_list_failed_button"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:visibility="gone">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/ui_applist_fresh_button"
+                    android:onClick="onStartFetchAppInfo"></Button>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/ui_applist_failed"></TextView>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <include
+        layout="@layout/layout_applist_page_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="40dp"
+        android:gravity="bottom|center"></include>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/setup_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:background="@drawable/hight_light_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onSetupButton"
+        android:src="@android:drawable/ic_menu_manage"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:borderWidth="2.0dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
