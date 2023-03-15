@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.pxy.demo.vrmonitor"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -62,9 +62,9 @@ dependencies {
     // 3.1.2.0 新增, 可选
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
-    implementation(name: 'lark-core-kit-3.2.0.1-build-1', ext: 'aar')
-    implementation(name: 'libwebrtc_20200925_M79', ext: 'aar')
-    implementation(name: 'lark-sr-kit-3.2.0.2-build-1', ext: 'aar')
+    implementation(name: 'lark-core-kit-3.2.0.3-build-1', ext: 'aar')
+    implementation(name: 'libwebrtc_104', ext: 'aar')
+    implementation(name: 'lark-sr-kit-3.2.0.3-build-1', ext: 'aar')
 
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.alibaba:fastjson:1.2.48'

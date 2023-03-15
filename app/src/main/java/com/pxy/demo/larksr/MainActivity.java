@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         mSetupDialog = new com.pxy.demo.larksr.SetupDialog(this, new SetupDialogCallback());
 
         CloudlarkManager.init(this, CloudlarkManager.APP_TYPE_SR, BuildConfig.tvMode);
-        String sdkId = "您的SDK授权码";
+        String sdkId = "5d141ba7aa97436188a0634b92917b48";
         CloudlarkManager.initSdkAuthorization(this, sdkId);
 
 //        Log.d(TAG, "native sdk id " + sdkId);
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         if (mCodeRateSpinner != null) {
             // set default code rate. positon
             if (mCodeRateSource != null) {
-                setCodeRate(1);
+                setCodeRate(5);
             }
             mCodeRateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
