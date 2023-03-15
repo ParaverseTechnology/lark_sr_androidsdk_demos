@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         mSetupDialog = new com.pxy.demo.larksr.SetupDialog(this, new SetupDialogCallback());
 
         CloudlarkManager.init(this, CloudlarkManager.APP_TYPE_SR, BuildConfig.tvMode);
-        String sdkId = "5d141ba7aa97436188a0634b92917b48";
+        String sdkId = "您的SDK授权码";
         CloudlarkManager.initSdkAuthorization(this, sdkId);
 
 //        Log.d(TAG, "native sdk id " + sdkId);
