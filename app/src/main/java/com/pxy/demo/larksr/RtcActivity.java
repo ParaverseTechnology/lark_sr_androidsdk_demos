@@ -621,6 +621,7 @@ public class RtcActivity extends AppCompatActivity {
         @Override
         public void onMediaReady() {
             Log.d(TAG, "on media ready");
+            mRtcClient.setVolume(10);
         }
 
         /**
