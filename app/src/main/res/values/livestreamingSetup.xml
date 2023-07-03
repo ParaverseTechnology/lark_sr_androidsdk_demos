@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="livestreamingFrameRate">
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+    <string-array name="livestreamingCodeRate">
+        <item>2500 kbps</item>
+        <item>5000 kbps</item>
+        <item>8000 kbps</item>
+        <item>10000 kbps</item>
+    </string-array>
+    <string-array name="livestreamingRes">
+        <item>1280 x 720</item>
+        <item>1920 x 1080</item>
+        <item>720 x 1280</item>
+        <item>1920 x 1080</item>
+    </string-array>
+</resources>

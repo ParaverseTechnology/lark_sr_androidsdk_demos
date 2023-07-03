@@ -73,4 +73,7 @@
     <string name="ui_applist_empty">应用列表空空如也</string>
     <string name="ui_applist_failed">获取列表失败，请检查网络或点击刷新按钮</string>
     <string name="ui_applist_fresh_button">刷新</string>
+    <string name="ui_setup_livestreaming_title">推流设置</string>
+    <string name="ui_setup_livestreaming_path">推流地址</string>
+    <string name="ui_setup_livestreaming_key">密钥</string>
 </resources>

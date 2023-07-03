@@ -73,4 +73,7 @@
     <string name="ui_applist_empty">Applist is empty.</string>
     <string name="ui_applist_failed">Fetch applist failed. Please check network or press fresh button.</string>
     <string name="ui_applist_fresh_button">Fresh</string>
+    <string name="ui_setup_livestreaming_title">Live Setup</string>
+    <string name="ui_setup_livestreaming_path">Streaming Path</string>
+    <string name="ui_setup_livestreaming_key">Streaming Key</string>
 </resources>

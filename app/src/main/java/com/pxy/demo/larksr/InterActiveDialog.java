@@ -74,14 +74,14 @@ class InterActiveDialog {
         mRoleGroup.setOnCheckedChangeListener(mRoleChange);
         mObModeGroup = dialogView.findViewById(R.id.radio_group_ob_auth_mode);
         mObModeGroup.setOnCheckedChangeListener(mObModeChange);
-        mNickNamInput = dialogView.findViewById(R.id.input_text_nickname);
+        mNickNamInput = dialogView.findViewById(R.id.input_text_live_path);
         mRoomCodeInput = dialogView.findViewById(R.id.input_text_ob_mode_roomcode);
         mGenRoomCodeButton = dialogView.findViewById(R.id.button_gen_room_code);
         mGenRoomCodeButton.setOnClickListener(this::genRoomCode);
         mGenRoomCodeGroup = dialogView.findViewById(R.id.gen_room_code_group);
         mRoomCodeTextView = dialogView.findViewById(R.id.text_room_code);
         mRoomCodeTextView.setVisibility(View.GONE);
-        mEnterAppliButton = dialogView.findViewById(R.id.button_enter_appli);
+        mEnterAppliButton = dialogView.findViewById(R.id.button_setup_live_submit);
         mEnterAppliButton.setOnClickListener(this::onEnterAppli);
         builder.setView(dialogView);
         mDialog = builder.create();

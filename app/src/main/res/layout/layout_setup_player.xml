@@ -8,7 +8,7 @@
     android:padding="40dp">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView4_livestreaming"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -49,7 +49,7 @@
     </RadioGroup>
 
     <EditText
-        android:id="@+id/input_text_nickname"
+        android:id="@+id/input_text_live_path"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -131,7 +131,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button_enter_appli"
+        android:id="@+id/button_setup_live_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ui_interactive_dialog_enter_app" />
