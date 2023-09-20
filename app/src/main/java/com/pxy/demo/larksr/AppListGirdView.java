@@ -235,11 +235,9 @@ public class AppListGirdView extends GridView {
         public void updatePageInfo() {
             if (mPrePageButton != null) {
                 mPrePageButton.setEnabled(mPageInfo.hasPreviousPage());
-                Log.e("mPrePageButton", mPageInfo.hasPreviousPage() + "");
             }
             if (mNextPageButton != null) {
                 mNextPageButton.setEnabled(mPageInfo.hasNextPage());
-                Log.e("mNextPageButton", mPageInfo.hasNextPage() + "");
             }
             if (mCurrentPageNum != null) {
                 mCurrentPageNum.setText(String.valueOf(mPageInfo.getPageNum()));

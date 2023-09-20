@@ -6,17 +6,27 @@
     android:layout_height="match_parent"
     android:background="@color/colorTransparentDark">
 
-    <TextView
-        android:id="@+id/text_state_rtt"
+    <include
+        android:id="@+id/layout_statics"
+        layout="@layout/layout_statics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:text="RTT"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/text_state_rtt"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="15dp"-->
+    <!--        android:layout_marginTop="15dp"-->
+    <!--        android:text="RTT"-->
+    <!--        android:textColor="@android:color/white"-->
+    <!--        android:textSize="20sp"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -159,6 +169,30 @@
                 android:text="@string/ui_menu_joystick_mode_2"
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/menu_button_livestreaming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:width="250dp"
+                android:background="@drawable/hight_light_button"
+                android:text="@string/ui_menu_button_livestreaming"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/menu_button_aichat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:width="250dp"
+                android:background="@drawable/hight_light_button"
+                android:text="@string/ui_menu_button_aichat"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/menu_button_exit"

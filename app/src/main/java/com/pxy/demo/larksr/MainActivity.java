@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.pxy.larkcore.CloudlarkManager;
 import com.pxy.larkcore.request.AppListItem;
@@ -27,6 +29,7 @@ import com.pxy.larkcore.request.PageInfo;
 import com.pxy.larkcore.request.ScheduleTaskManager;
 import com.pxy.lib_sr.RtcClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,15 +63,22 @@ public class MainActivity extends AppCompatActivity {
     //
     private boolean mUseInterActiveMode = false;
 
-    private com.pxy.demo.larksr.SetupDialog mSetupDialog;
+    private SetupDialog mSetupDialog;
 
     private boolean mTVMode = BuildConfig.tvMode;
+
+    /*
+    private RecyclerView msgRecyclerView;
+    private AiChatAdapter adapter;
+    private List<AiChatMsg> msgList = new ArrayList<AiChatMsg>();
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "====================onCreate");
+
         // int views
         mCodeRateSpinner = findViewById(R.id.spinner_code_rate);
         mFrameRateSpinner = findViewById(R.id.spinner_frame_rate);
@@ -111,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mInterActiveDialog = new InterActiveDialog(this, new EnterAppliInfoCallback());
-        mSetupDialog = new com.pxy.demo.larksr.SetupDialog(this, new SetupDialogCallback());
+        mSetupDialog = new SetupDialog(this, new SetupDialogCallback());
 
         CloudlarkManager.init(this, CloudlarkManager.APP_TYPE_SR, BuildConfig.tvMode);
         String sdkId = "28c2eb1d50e14105b005940dc80588d1";
@@ -122,6 +132,34 @@ public class MainActivity extends AppCompatActivity {
 
         // 初始化
         init();
+
+        /*
+        msgRecyclerView = (RecyclerView)findViewById(R.id.test_msg_recycler_view);
+
+        adapter = new AiChatAdapter();
+
+        //创建MsgAdapter的实例并将数据传入到MsgAdapter的构造函数中
+        msgRecyclerView.setAdapter(adapter);
+
+        AiChatMsg msg1=new AiChatMsg("Hello guy.",AiChatMsg.TYPE_RECEIVED);
+        msgList.add(msg1);
+        AiChatMsg msg2=new AiChatMsg("Hello.Who is that?",AiChatMsg.TYPE_SENT);
+        msgList.add(msg2);
+        AiChatMsg msg3=new AiChatMsg("This is Tom!",AiChatMsg.TYPE_RECEIVED);
+        msgList.add(msg3);
+        adapter.fresh(msgList);
+
+        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        msgRecyclerView.setLayoutManager(layoutManager);
+
+        // msgRecyclerView.setHasFixedSize(true);
+         */
+
+        // check permission
+        if (!PermissionHelper.hasRequiredPermissions(this)) {
+            PermissionHelper.requestPermissions(this);
+        }
     }
 
     @Override
@@ -293,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
             if (mUseInterActiveMode) {
                 mInterActiveDialog.close();
             }
-            Log.e("rtcParams",rtcParams.toString());
+            Log.d("rtcParams",rtcParams.toString());
             Intent intent = new Intent();
             ComponentName componentName = new ComponentName(MainActivity.this, RtcActivity.class);
             intent.setComponent(componentName);

@@ -1,18 +1,25 @@
 package com.pxy.demo.larksr.components;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.InputEvent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.pxy.demo.larksr.R;
 import com.pxy.demo.larksr.inputs.Dpad;
+import com.pxy.lib_sr.RtcClient;
 import com.pxy.lib_sr.input.WindowsXInputGamepad;
 
-public final class VCursorWithVMouse {
+public final class VCursorWithVMouse implements RtcClient.CloudCursorEvent {
     private static String TAG = "VCursorWithVMouse";
 
     private static final int SPEED = 10;
@@ -22,9 +29,14 @@ public final class VCursorWithVMouse {
     private float mTouchX = 0;
     private float mTouchY = 0;
     private Dpad mDpad = new Dpad();
+
+    private ImageView   mVCursorImage;
     private ImageButton mVMouseLeft;
     private ImageButton mVMouseRight;
     private ImageButton mVMouseBottom;
+
+    private Activity mActivity;
+
 
     public interface VCursorEvent {
         void onMouseLeftDown(float x, float y);
@@ -36,10 +48,13 @@ public final class VCursorWithVMouse {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public VCursorWithVMouse(View vCursorView, VCursorEvent callback) {
+    public VCursorWithVMouse(Activity activity, View vCursorView, VCursorEvent callback) {
+        mActivity = activity;
+
         mVCursorView = vCursorView;
         mCallback = callback;
 
+        mVCursorImage = (ImageView) vCursorView.findViewById(R.id.imageView_cursor);
         mVMouseLeft = (ImageButton) vCursorView.findViewById(R.id.vmouse_left);
         mVMouseRight = (ImageButton) vCursorView.findViewById(R.id.vmouse_right);
         mVMouseBottom = (ImageButton) vCursorView.findViewById(R.id.vmouse_bottom);
@@ -256,5 +271,70 @@ public final class VCursorWithVMouse {
                 return false;
         }
         return true;
+    }
+
+    @Override
+    public void onCursorStyle(int type, int hot_x, int hot_y, int width, int height, String custom_base64) {
+        Log.d(TAG, "onCursorStyle " + type + " " + custom_base64);
+        switch (type) {
+            case RtcClient.CURSOR_TYPE_ARROW:
+                setCursorImageResorece(R.mipmap.cursor_aero_arrow_xl);
+                break;
+            case RtcClient.CURSOR_TYPE_IBEAM:
+                setCursorImageResorece(R.mipmap.cursor_beam_rm);
+                break;
+            case RtcClient.CURSOR_TYPE_WAIT:
+                setCursorImageResorece(R.mipmap.cursor_wait_l);
+                break;
+            case RtcClient.CURSOR_TYPE_CROSS:
+                setCursorImageResorece(R.mipmap.cursor_cross_rm);
+                break;
+            case RtcClient.CURSOR_TYPE_SIZENWSE:
+                setCursorImageResorece(R.mipmap.cursor_aero_nwse_xl);
+                break;
+            case RtcClient.CURSOR_TYPE_SIZENESW:
+                setCursorImageResorece(R.mipmap.cursor_aero_nesw_xl);
+                break;
+            case RtcClient.CURSOR_TYPE_SIZEWE:
+                setCursorImageResorece(R.mipmap.cursor_aero_ew_xl);
+                break;
+            case RtcClient.CURSOR_TYPE_SIZENS:
+                setCursorImageResorece(R.mipmap.cursor_aero_ns_xl);
+                break;
+            case RtcClient.CURSOR_TYPE_SIZEALL:
+                setCursorImageResorece(R.mipmap.cursor_aero_move_xl);
+                break;
+            case RtcClient.CURSOR_TYPE_NO:
+                setCursorImageResorece(R.mipmap.cursor_aero_unavail_xl);
+                break;
+            case RtcClient.CURSOR_TYPE_HAND:
+                setCursorImageResorece(R.mipmap.cursor_aero_link_im);
+                break;
+            case RtcClient.CURSOR_TYPE_CUSTOM:
+                setCursorImageResorece(custom_base64);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setCursorImageResorece(int id) {
+        mActivity.runOnUiThread(() -> {
+            mVCursorImage.setImageResource(id);
+        });
+    }
+
+    private void setCursorImageResorece(String base64String) {
+        mActivity.runOnUiThread(() -> {
+            byte[] decodedString = Base64.decode(base64String, Base64.DEFAULT);
+            try {
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                if (decodedByte != null) {
+                    mVCursorImage.setImageBitmap(decodedByte);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

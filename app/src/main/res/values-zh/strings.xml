@@ -59,6 +59,8 @@
     <string name="ui_menu_joystick_mode_2">摇杆模式2 %1$s</string>
     <string name="ui_menu_dpad_mode_1">遥控器模式1 %1$s</string>
     <string name="ui_menu_dpad_mode_2">遥控器模式2 %1$s</string>
+    <string name="ui_menu_button_livestreaming">直播推流</string>
+    <string name="ui_menu_button_aichat">智能语音</string>
     <string name="ui_menu_mode_current">(当前)</string>
     <string name="ui_alert_quit">确认退出？</string>
     <string name="ui_interactive_dialog_title">互动模式</string>
@@ -76,4 +78,20 @@
     <string name="ui_setup_livestreaming_title">推流设置</string>
     <string name="ui_setup_livestreaming_path">推流地址</string>
     <string name="ui_setup_livestreaming_key">密钥</string>
+    <string name="ui_setup_livestreaming_stop">停止</string>
+    <string name="ui_setup_livestreaming_empty_path">请设置推流地址</string>
+    <string name="ui_setup_livestreaming_starting">开始推流</string>
+    <string name="ui_setup_livestreaming_stoping">停止推流</string>
+    <string name="ui_media_video">打开摄像头</string>
+    <string name="ui_media_mic">打开麦克风</string>
+    <string name="ui_statics_name_rtt">网络时延</string>
+    <string name="ui_statics_name_biterate">码率</string>
+    <string name="ui_statics_name_decode_fps">解码帧率</string>
+    <string name="ui_statics_name_packgelost">丢包率</string>
+    <string name="ui_statics_name_server_capture">采集</string>
+    <string name="ui_statics_name_server_render">渲染</string>
+    <string name="ui_statics_name_server_encoder">编码</string>
+    <string name="ui_button_aichat_send">发送</string>
+    <string name="ui_button_aichat_input_hit">Say hi~</string>
+    <string name="ui_button_aichat_recode">按住 说话</string>
 </resources>

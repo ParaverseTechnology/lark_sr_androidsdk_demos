@@ -137,12 +137,9 @@ class InterActiveDialog {
     }
 
     private void genRoomCode(final View view) {
-        Log.e("getRoomCode", "top");
-        //RoomCode roomCode = new RoomCode();
         new RoomCode().getRoomCode(new RoomCode.Callback() {
             @Override
             public void onSuccess(String roomCode) {
-                Log.e("genRoomCode", roomCode);
                 mRoomCode = roomCode;
                 mContext.runOnUiThread(() -> {
                     mRoomCodeTextView.setVisibility(View.VISIBLE);
@@ -152,7 +149,6 @@ class InterActiveDialog {
 
             @Override
             public void onFail(String err) {
-                Log.e("gegroomcode", err);
                 toastInner("口令生成失败 " + err);
             }
         });

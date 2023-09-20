@@ -34,7 +34,7 @@
         <RadioButton
             android:id="@+id/radio_button_player"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="2"
             android:checked="true"
             android:text="@string/ui_interactive_dialog_player" />
@@ -42,7 +42,7 @@
         <RadioButton
             android:id="@+id/radio_button_ob"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="2"
             android:checked="false"
             android:text="@string/ui_interactive_dialog_ob" />
@@ -51,11 +51,12 @@
     <EditText
         android:id="@+id/input_text_live_path"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="10dp"
         android:ems="10"
         android:hint="@string/ui_interactive_dialog_nickname"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:autofillHints="@string/ui_interactive_dialog_nickname" />
 
     <RadioGroup
         android:id="@+id/radio_group_ob_auth_mode"
@@ -74,7 +75,7 @@
         <RadioButton
             android:id="@+id/radio_button_room_code"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="2"
             android:checked="true"
             android:text="@string/ui_interactive_dialog_room_code" />
@@ -82,7 +83,7 @@
         <RadioButton
             android:id="@+id/radio_button_task_id"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="2"
             android:checked="false"
             android:text="TaskId" />
@@ -92,7 +93,7 @@
     <EditText
         android:id="@+id/input_text_ob_mode_roomcode"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="10dp"
         android:ems="10"
         android:hint="@string/ui_interactive_dialog_room_code"

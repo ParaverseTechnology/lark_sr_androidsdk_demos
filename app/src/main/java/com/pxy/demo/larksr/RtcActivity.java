@@ -20,12 +20,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.pxy.larkcore.request.EnterAppliInfo;
+import com.pxy.larkcore.request.GetTask;
 import com.pxy.lib_sr.RtcClient;
 import com.pxy.lib_sr.input.AppNotification;
 import com.pxy.lib_sr.input.ClientInput;
@@ -45,6 +50,8 @@ import com.pxy.demo.larksr.inputs.SoftKeyboardHandler;
 import com.pxy.demo.larksr.inputs.TouchInput;
 import com.pxy.demo.larksr.inputs.TouchScreenHandler;
 import com.pxy.demo.larksr.inputs.VCursorHandler;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,12 +144,34 @@ public class RtcActivity extends AppCompatActivity {
     private com.pxy.demo.larksr.PlayerAdapter mPlayerListAdapter;
 
     private TextView mRttText;
+    private TextView mBitrateText;
+    private TextView mFPSText;
+    private TextView mPackgelost;
+    private TextView mServerCaptureDelayText;
+    private TextView mServerRenderDelayText;
+    private TextView mServerEncoderDelay;
+
+    private View mChatViewLayout;
+    private RecyclerView mAiChatRecyclerView;
+    private AiChatAdapter mAiChatAdapter;
+
+    private TextInputEditText mAiChatTextInput;
 
     private boolean mIsInteractive = false;
 
     private int mUserId = 0;
     private ImageView mTestCaptureImageView = null;
     private boolean mTouchScreenOperateMode = false;
+
+    private LiveStreamingSetupDialog mLiveStreamingSetupDialog;
+
+    /**
+     * open media > next version
+    private View mMediaShareLayout = null;
+    private ImageButton mVideoButton = null;
+    private Spinner mVideoSpinner = null;
+    private ImageButton mMicButton = null;
+     */
 
     private int strect = 0;
 
@@ -209,9 +238,112 @@ public class RtcActivity extends AppCompatActivity {
         mMenuViewPlayerList = findViewById(R.id.menu_player_list);
         setMenuView(0);
 
-        mRttText = findViewById(R.id.text_state_rtt);
+        mRttText = findViewById(R.id.textView_statics_rtt);
+        mBitrateText = findViewById(R.id.textView_statics_bytesPerSec);
+        mFPSText = findViewById(R.id.textView_statics_frameDeocdedPreSec);
+        mPackgelost = findViewById(R.id.textView_statics_packageLostRatePerSec);
+        mServerCaptureDelayText = findViewById(R.id.textView_statics_serverCaptureDelay);
+        mServerRenderDelayText = findViewById(R.id.textView_statics_serverRenderDelay);
+        mServerEncoderDelay = findViewById(R.id.textView_statics_serverEncoderDelay);
 
         mTestCaptureImageView = findViewById(R.id.textureView_test_capture);
+
+        /**
+         * open media > next version
+        // media share video/mic
+        mMediaShareLayout = findViewById(R.id.layout_media_video);
+        mVideoButton = findViewById(R.id.button_open_camera);
+        mVideoSpinner = findViewById(R.id.spinner_choose_camera);
+        mMicButton = findViewById(R.id.button_open_mic);
+
+        mMediaShareLayout.setVisibility(View.GONE);
+        mVideoButton.setVisibility(View.GONE);
+        mVideoSpinner.setVisibility(View.GONE);
+        mMicButton.setVisibility(View.GONE);
+
+        mVideoButton.setOnClickListener(view -> {
+            if (mRtcClient != null) {
+                mRtcClient.GetMediaSharePeerConnection(0).startVideoSource();
+            }
+        });
+
+        mMicButton.setOnClickListener(view -> {
+            if (mRtcClient != null) {
+                mRtcClient.GetMediaSharePeerConnection(0).startAudio();
+            }
+        });
+         */
+
+        // aivoice
+        mChatViewLayout = findViewById(R.id.linearLayout_aichat);
+        mChatViewLayout.setVisibility(View.GONE);
+
+        mAiChatRecyclerView = (RecyclerView)findViewById(R.id.recyclerView_aichat);
+
+        mAiChatAdapter = new AiChatAdapter();
+
+        mAiChatRecyclerView.setAdapter(mAiChatAdapter);
+
+        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mAiChatRecyclerView.setLayoutManager(layoutManager);
+
+        mAiChatTextInput = findViewById(R.id.textInput_AiChat_Text);
+
+        Button sendButton = findViewById(R.id.button_AiChat_Send);
+        sendButton.setOnClickListener(view -> {
+            String content = mAiChatTextInput.getText().toString();
+
+            if (!"".equals(content)) {
+                mAiChatAdapter.addUserSend(content);
+                mAiChatRecyclerView.scrollToPosition(mAiChatAdapter.end());
+                mAiChatTextInput.setText("");
+                if (mRtcClient != null) {
+                    mRtcClient.aiDmTextInput(content);
+                }
+            }
+        });
+
+        ImageButton recodeButton = findViewById(R.id.button_AiChat_VoiceRecode);
+        recodeButton.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getActionMasked()) {
+                case MotionEvent.ACTION_POINTER_DOWN:
+                case MotionEvent.ACTION_DOWN:
+                    if (mRtcClient != null) {
+                        mRtcClient.startAiDmVoiceInput();
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                case MotionEvent.ACTION_OUTSIDE:
+                case MotionEvent.ACTION_POINTER_UP:
+                    if (mRtcClient != null) {
+                        mRtcClient.stopAiDmVoiceInput();
+                    }
+                    break;
+            }
+            return true;
+        });
+
+        Button aichatMenuButton = findViewById(R.id.menu_button_aichat);
+        aichatMenuButton.setOnClickListener(view -> {
+            if (mChatViewLayout.getVisibility() == View.VISIBLE) {
+                mChatViewLayout.setVisibility(View.GONE);
+            } else {
+                mChatViewLayout.setVisibility(View.VISIBLE);
+            }
+        });
+        /// aicaht end
+
+        /// live streaming
+        // 直播推流设置对话框
+        mLiveStreamingSetupDialog = new LiveStreamingSetupDialog(this, mLiveStreamingSetupDialogCallback);
+
+        Button livestreamingButton = findViewById(R.id.menu_button_livestreaming);
+        livestreamingButton.setOnClickListener(view -> {
+           hideMenu();
+            mLiveStreamingSetupDialog.Show();
+        });
 
         //
         // @sample 演示监听获取原始视频帧
@@ -242,6 +374,12 @@ public class RtcActivity extends AppCompatActivity {
                 mRtcClient = new RtcClient(rtcParams, mRender,
                         mRtcClientListener,
                         this);
+                // 直播推流回调
+                mRtcClient.SetRtmpCallback(mRtmpEvent);
+                // 语音对话回调
+                mRtcClient.SetAiVoiceCallback(mAiVoiceEvent);
+                // task info callback
+                mRtcClient.SetTaskInfoEvent(mTaskInfoCallback);
                 // 开始连接
                 connect();
             }
@@ -276,8 +414,9 @@ public class RtcActivity extends AppCompatActivity {
             mSoftGamepadHandler = new SoftGamepadHandler(this, mRtcClient);
             // 虚拟鼠标
             mVCursorHandler = new VCursorHandler(mRtcClient);
-            mVCursor = new VCursorWithVMouse(findViewById(R.id.vcursor), mVCursorHandler);
+            mVCursor = new VCursorWithVMouse(this, findViewById(R.id.vcursor), mVCursorHandler);
             // mVCursor.getVCursorView().setVisibility(View.VISIBLE);
+            mRtcClient.SetCloudCursorCallback(mVCursor);
 
             // 是否使用硬件手柄
             mHWGamepad = rtcParams.useGamepad;
@@ -572,7 +711,7 @@ public class RtcActivity extends AppCompatActivity {
         );
     }
 
-    private ListView.OnItemClickListener mPlayerlistSelected = new AdapterView.OnItemClickListener() {
+    private final ListView.OnItemClickListener mPlayerlistSelected = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             AppNotification.PlayerDesc playerDesc = mPlayerListAdapter.getItem(position);
@@ -598,7 +737,7 @@ public class RtcActivity extends AppCompatActivity {
     /**
      * RtcClientEvent. rtc 客户端回调事件
      */
-    private RtcClient.RtcClientEvent mRtcClientListener = new RtcClient.RtcClientEvent() {
+    private final RtcClient.RtcClientEvent mRtcClientListener = new RtcClient.RtcClientEvent() {
         /**
          *  socket 连接成功时回调
          */
@@ -685,11 +824,28 @@ public class RtcActivity extends AppCompatActivity {
          */
         @Override
         public void onPeerStatusReport(RtcClient.SampleRTCStats sampleRTCStats) {
-            Log.d(TAG, "onPeerStatusReport " + sampleRTCStats.rtt);
+            Log.d(TAG, "onPeerStatusReport " + sampleRTCStats);
             runOnUiThread(() -> {
                 if (mRttText != null) {
-                    String rtt = "RTT " + (sampleRTCStats.rtt * 1000) + "ms";
-                    mRttText.setText(rtt);
+                    mRttText.setText(String.valueOf(sampleRTCStats.rtt * 1000) );
+                }
+                if (mBitrateText != null) {
+                    mBitrateText.setText(String.valueOf(sampleRTCStats.bytesPerSec * 1024));
+                }
+                if (mFPSText != null) {
+                    mFPSText.setText(String.valueOf(sampleRTCStats.frameDeocdedPreSec));
+                }
+                if (mPackgelost != null) {
+                    mPackgelost.setText(String.valueOf(sampleRTCStats.packageLostRatePerSec));
+                }
+                if (mServerCaptureDelayText != null) {
+                    mServerCaptureDelayText.setText(String.valueOf(sampleRTCStats.serverCaptureDelay));
+                }
+                if (mServerRenderDelayText != null) {
+                    mServerRenderDelayText.setText(String.valueOf(sampleRTCStats.serverRenderDelay));
+                }
+                if (mServerEncoderDelay != null) {
+                    mServerEncoderDelay.setText(String.valueOf(sampleRTCStats.serverEncoderDelay));
                 }
             });
         }
@@ -802,7 +958,7 @@ public class RtcActivity extends AppCompatActivity {
         }
     };
 
-    private Gesture.GestureEvent mGestureListener = new Gesture.GestureEvent() {
+    private final Gesture.GestureEvent mGestureListener = new Gesture.GestureEvent() {
         /**
          *  触摸手势事件回调
          * @param gestureMovement 手势事件。
@@ -907,7 +1063,7 @@ public class RtcActivity extends AppCompatActivity {
 
 
     // 摇杆事件监听
-    private SoftJoystick.SoftJoystickEvent mSoftJoystickListener = new SoftJoystick.SoftJoystickEvent() {
+    private final SoftJoystick.SoftJoystickEvent mSoftJoystickListener = new SoftJoystick.SoftJoystickEvent() {
         /**
          * 摇杆移动事件
          * @param rx 摇杆 x 轴相对移动
@@ -969,7 +1125,6 @@ public class RtcActivity extends AppCompatActivity {
      * 缩放画面。 适应屏幕大小，，完全显示内容，
      */
     private void resize() {
-        Log.e("strect",strect+"");
         runOnUiThread(() -> {
             int stageW = mAppWidth > 0 ? mAppWidth : RtcClient.WIDTH;
             int stageH = mAppHeight > 0 ? mAppHeight : RtcClient.HEIGHT;
@@ -1052,8 +1207,7 @@ public class RtcActivity extends AppCompatActivity {
                     layout.width = scaleW;
                     layout.height = scaleH;
                     mRender.setLayoutParams(layout);
-                }
-                ;
+                };
             }
 
         });
@@ -1259,8 +1413,53 @@ public class RtcActivity extends AppCompatActivity {
             }
         }
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // 直播推流回调
+    private final RtcClient.RtmpEvent mRtmpEvent = new RtcClient.RtmpEvent() {
+        @Override
+        public void onRtmpState(int i, String s) {
+            if (s != null) {
+                toastInner(s);
+            }
+        }
 
+        @Override
+        public void onRtmpError(int i, String s) {
+            if (s != null) {
+                toastInner(s);
+            }
+        }
+    };
 
+    private final LiveStreamingSetupDialog.LiveStreamingSetupDialogCallback mLiveStreamingSetupDialogCallback =
+            new LiveStreamingSetupDialog.LiveStreamingSetupDialogCallback() {
+        @Override
+        public void OnStartLiveStreaming(LiveStreamingSetupDialog dialog) {
+            if (dialog.getPath().isEmpty()) {
+                toastInner(R.string.ui_setup_livestreaming_empty_path);
+                return;
+            }
+
+            if (mRtcClient != null) {
+                mRtcClient.StartCloudLiveStreaming(dialog.getPath(),
+                        dialog.getKey(),
+                        dialog.getWidthValue(),
+                        dialog.getHeightValue(),
+                        dialog.getCodeRateValue(),
+                        dialog.getFrameRateValue());
+                toastInner(R.string.ui_setup_livestreaming_starting);
+            }
+        }
+
+        @Override
+        public void OnStopLiveStreaming() {
+            if (mRtcClient != null) {
+                mRtcClient.StopLiveStreaming();
+                toastInner(R.string.ui_setup_livestreaming_stoping);
+            }
+        }
+    };
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private void showMenu() {
         runOnUiThread(() -> {
             mShowMenu = true;
@@ -1277,7 +1476,88 @@ public class RtcActivity extends AppCompatActivity {
             mMenu.setVisibility(View.INVISIBLE);
         });
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ai voice
+    private RtcClient.AiVoiceEvent mAiVoiceEvent = new RtcClient.AiVoiceEvent() {
+        @Override
+        public void onAiVoiceResult(int voiceId, String text) {
+            Log.d(TAG, "onAiVoiceResult " + voiceId + " " + text);
+            runOnUiThread(() -> {
+                try {
+                    JSONObject jsonObject = new JSONObject(text);
 
+                    JSONObject dm = jsonObject.optJSONObject("dm");
+
+                    if (dm != null) {
+                        String ngl = dm.optString("nlg");
+                        if (!ngl.isEmpty()) {
+                            mAiChatAdapter.addAiReceive(ngl);
+                            mAiChatRecyclerView.scrollToPosition(mAiChatAdapter.end());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        @Override
+        public void onAiVoiceRealTimeParseResult(int voiceId, String text) {
+            Log.d(TAG, "onAiVoiceRealTimeParseResult " + voiceId + " " + text);
+
+            runOnUiThread(() -> {
+                mAiChatAdapter.addUserSend(text);
+            });
+        }
+
+        @Override
+        public void onAiVoiceServerStatus(boolean success, String reason) {
+            Log.d(TAG, "onAiVoiceServerStatus " + success + " " + reason);
+            runOnUiThread(() -> {
+                if (success) {
+                    mChatViewLayout.setVisibility(View.VISIBLE);
+                }
+                mAiChatAdapter.addAiReceive(reason);
+            });
+        }
+
+        @Override
+        public void onAiVoiceError(int voiceId, String text) {
+            Log.d(TAG, "onAiVoiceError " + voiceId + " " + text);
+            runOnUiThread(() -> {
+                mAiChatAdapter.addAiReceive(text);
+            });
+        }
+    };
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private final RtcClient.TaskInfoEvent mTaskInfoCallback = new RtcClient.TaskInfoEvent() {
+        @Override
+        public void onTaskSuccess(GetTask.TaskInfo taskInfo) {
+
+            /**
+             * open media > next version
+            if (taskInfo.videoInput == 1) {
+                runOnUiThread(() -> {
+                    mMediaShareLayout.setVisibility(View.VISIBLE);
+                    mVideoButton.setVisibility(View.VISIBLE);
+                    mVideoSpinner.setVisibility(View.VISIBLE);
+                });
+            }
+            if (taskInfo.audioInput == 1) {
+                runOnUiThread(() -> {
+                    mMediaShareLayout.setVisibility(View.VISIBLE);
+                    mMicButton.setVisibility(View.VISIBLE);
+                });
+            }
+             */
+        }
+
+        @Override
+        public void onSync() {
+            Log.d(TAG, "task on sync");
+        }
+    };
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private void toastInner(int resId) {
         toastInner(getString(resId));
     }

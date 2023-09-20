@@ -141,12 +141,12 @@ public class MainActivity extends AppCompatActivity {
                 if (newState==RecyclerView.SCROLL_STATE_IDLE) {
                     if (recyclerView.canScrollVertically(-1)) {
                         //mark
-                        Log.e("bottom", getClientSearch.getmPage() + "");
+                        Log.d("bottom", getClientSearch.getmPage() + "");
                         if(getClientSearch.getmPageInfo().hasNextPage()) {
                             getClientSearch.setmPage(getClientSearch.getmPage() + 1);
                         }
                     } else if (recyclerView.canScrollVertically(1)) {
-                        Log.e("top", getClientSearch.getmPage() + "");
+                        Log.d("top", getClientSearch.getmPage() + "");
                         if (getClientSearch.getmPageInfo().hasPreviousPage()) {
                             getClientSearch.setmPage(getClientSearch.getmPage() - 1);
                         }
@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFail(String onFail) {
-                Log.e("onFail",onFail);
+                Log.d("onFail",onFail);
                 toastInner(onFail);
                 showLogin();
             }
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFail(String err) {
-                Log.e("getCredentialFail",err);
+                Log.d("getCredentialFail",err);
                 toastInner(err);
             }
         }).doget(token);
@@ -325,8 +325,8 @@ public class MainActivity extends AppCompatActivity {
         GetCaptcha getCaptcha=new GetCaptcha(new GetCaptcha.Callback() {
             @Override
             public void onSuccess(String res,String captchaId) {
-                Log.e("captres",res);
-                Log.e("captchaId",captchaId);
+                Log.d("captres",res);
+                Log.d("captchaId",captchaId);
                 captchaIdstr=captchaId;
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
@@ -361,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFail(String err) {
-                Log.e("captfail",err);
+                Log.d("captfail",err);
                 toastInner(err);
                 showIpSetting();
             }
@@ -401,12 +401,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void SDKinitialization() {
-        Log.e(TAG, "SDKinitialization");
         CloudlarkManager.init(this, CloudlarkManager.APP_TYPE_VR_MONITOR);
         String sdkId = "您的SDK ID. 如果没有请联系商务获取。";
 
         CloudlarkManager.initSdkAuthorization(this, sdkId);
-        Log.d(TAG, "lark sdk auth success");
 
         CloudlarkManager.setLoadingBgBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.bg_dark));
     }
@@ -425,7 +423,6 @@ public class MainActivity extends AppCompatActivity {
      *  初始化设置
      */
     private void init() {
-        Log.e(TAG, "init");
         mScheduleTaskManager = new ScheduleTaskManager(ScheduleTaskManager.SCHEDULE_TIME_SECOND_MS * 2);
         mCodeRateSource = getResources().getStringArray(R.array.codeRate);
         setCodeRate(2);
@@ -441,7 +438,6 @@ public class MainActivity extends AppCompatActivity {
             showIpSetting();
         } else {
             String outhttp=mServerIp.substring(7);
-            Log.e("outhttp",outhttp);
             inputIp.setText(outhttp.split(":")[0]);
             inputPort.setText(outhttp.split(":")[1]);
             Base.setServerAddr(useHttps, mServerIp);
@@ -449,7 +445,6 @@ public class MainActivity extends AppCompatActivity {
             if (sp.getString("credentialData","")!=null && !sp.getString("credentialData","").isEmpty()){
                 credentialData=JSON.parseObject(sp.getString("credentialData",""),CredentialBean.RecordsBean.class);
             }else {
-                Log.e("credentialData","credentialDataIsNull");
                 showLogin();
             }
             getClientSearch();

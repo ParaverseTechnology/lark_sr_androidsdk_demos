@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/button_open_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/video_on"
+        android:contentDescription="@string/ui_media_video" />
+
+    <Spinner
+        android:id="@+id/spinner_choose_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/light_button"
+        android:entries="@array/cameraTypes"
+        android:spinnerMode="dialog" />
+
+    <ImageButton
+        android:id="@+id/button_open_mic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_mic"
+        android:layout_marginLeft="5dp"
+        android:contentDescription="@string/ui_media_mic" />
+</LinearLayout>

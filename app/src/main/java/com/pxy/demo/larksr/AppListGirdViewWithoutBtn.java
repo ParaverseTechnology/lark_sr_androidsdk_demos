@@ -64,7 +64,6 @@ public class AppListGirdViewWithoutBtn extends GridView {
     public void initView(Context context) {
         mAdapter = new AppListAdapter(context, R.layout.layout_item, new ArrayList<>());
         setAdapter(mAdapter);
-        Log.e("initview","view");
         setVerticalSpacing(VerticalSpacin);
     }
 

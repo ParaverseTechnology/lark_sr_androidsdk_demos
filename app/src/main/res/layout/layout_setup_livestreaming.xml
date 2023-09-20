@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="40dp">
+    android:padding="10dp"
+    android:id="@+id/layout_setup_livestreaming">
 
     <TextView
         android:id="@+id/textView4_livestreaming"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:text="@string/ui_setup_livestreaming_title"
         android:textAlignment="center"
         android:textSize="24sp" />
@@ -19,8 +19,9 @@
     <EditText
         android:id="@+id/input_text_live_path"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="10dp"
+        android:autofillHints="@string/ui_setup_livestreaming_path"
         android:ems="10"
         android:hint="@string/ui_setup_livestreaming_path"
         android:inputType="textPersonName" />
@@ -28,33 +29,71 @@
     <EditText
         android:id="@+id/input_text_live_key"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="10dp"
+        android:autofillHints="@string/ui_setup_livestreaming_key"
         android:ems="10"
         android:hint="@string/ui_setup_livestreaming_key"
         android:inputType="textPersonName" />
 
-    <Spinner
-        android:id="@+id/spinner_setup_live_coderate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/livestreamingCodeRate" />
-
-    <Spinner
-        android:id="@+id/spinner_setup_live_fps"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/livestreamingFrameRate" />
-
-    <Spinner
-        android:id="@+id/spinner_setup_live_res"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/livestreamingRes" />
-
-    <Button
-        android:id="@+id/button_setup_live_submit"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/summit" />
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <Spinner
+            android:id="@+id/spinner_setup_live_coderate"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:entries="@array/livestreamingCodeRate" />
+
+        <Spinner
+            android:id="@+id/spinner_setup_live_fps"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:entries="@array/livestreamingFrameRate" />
+
+        <Spinner
+            android:id="@+id/spinner_setup_live_res"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:entries="@array/livestreamingRes" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_setup_live_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/primary_button"
+            android:padding="5dp"
+            android:text="@string/summit"
+            android:textColor="@color/ic_launcher_background" />
+
+        <Button
+            android:id="@+id/button_setup_live_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/default_button"
+            android:text="@string/ui_setup_livestreaming_stop"
+            android:textColor="@color/ic_launcher_background" />
+
+        <Button
+            android:id="@+id/button_setup_live_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="@drawable/light_button"
+            android:text="@string/cancle" />
+    </LinearLayout>
+
 </LinearLayout>

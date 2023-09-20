@@ -77,30 +77,28 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
             viewHolder.pic.setTag(data);
         }
         if (!data.getTaskId().equals("0")){
-            Log.e(i+"--taskid", data.getTaskId());
             ifMedia(viewHolder,true);
             viewHolder.item.requestFocus();
             if (!rtcmap.containsKey(i+"")){
                 GetTask getTask = new GetTask(new GetTask.Callback() {
                     @Override
                     public void onSuccess(String res) {
-                        Log.e("gettask", res);
                         viewHolder.setParam(res);
                         RtcClient rtcClient=new RtcClient(getparam(res), viewHolder.rtcRender,
                                 new RtcClient.RtcClientEvent() {
                                     @Override
                                     public void onConnect() {
-                                        Log.e(i+"--viewholder","onConnect");
+                                        Log.d(i+"--viewholder","onConnect");
                                     }
 
                                     @Override
                                     public void onLoginSuccess(int i) {
-                                        Log.e(i+"--viewholder","onLoginSuccess--"+i);
+                                        Log.d(i+"--viewholder","onLoginSuccess--"+i);
                                     }
 
                                     @Override
                                     public void onMediaReady() {
-                                        Log.e(i+"--viewholder","onMediaReady");
+                                        Log.d(i+"--viewholder","onMediaReady");
                                     }
 
                                     @Override
@@ -117,17 +115,17 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
 
                                     @Override
                                     public void onNoOpreationTimeout() {
-                                        Log.e(i+"--viewholder","onNoOpreationTimeout");
+                                        Log.d(i+"--viewholder","onNoOpreationTimeout");
                                     }
 
                                     @Override
                                     public void onInfo(String s) {
-                                        Log.e(i+"--viewholder","onInfo--"+s);
+                                        Log.d(i+"--viewholder","onInfo--"+s);
                                     }
 
                                     @Override
                                     public void onError(String s) {
-                                        Log.e(i+"--viewholder","onError--"+s);
+                                        Log.d(i+"--viewholder","onError--"+s);
                                     }
 
                                     @Override
@@ -152,17 +150,17 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
 
                                     @Override
                                     public void onDataChannelOpen() {
-                                        Log.e(i+"--viewholder","onDataChannelOpen");
+                                        Log.d(i+"--viewholder","onDataChannelOpen");
                                     }
 
                                     @Override
                                     public void onDataChannelClose() {
-                                        Log.e(i+"--viewholder","onDataChannelClose");
+                                        Log.d(i+"--viewholder","onDataChannelClose");
                                     }
 
                                     @Override
                                     public void onDataChannelMessage(String s) {
-                                        Log.e(i+"--viewholder","onDataChannelMessage--"+s);
+                                        Log.d(i+"--viewholder","onDataChannelMessage--"+s);
                                     }
 
                                     @Override
@@ -248,17 +246,17 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
                     new RtcClient.RtcClientEvent() {
                         @Override
                         public void onConnect() {
-                            Log.e(i + "--viewholder", "onConnect");
+                            Log.d(i + "--viewholder", "onConnect");
                         }
 
                         @Override
                         public void onLoginSuccess(int i) {
-                            Log.e(i + "--viewholder", "onLoginSuccess--" + i);
+                            Log.d(i + "--viewholder", "onLoginSuccess--" + i);
                         }
 
                         @Override
                         public void onMediaReady() {
-                            Log.e(i + "--viewholder", "onMediaReady");
+                            Log.d(i + "--viewholder", "onMediaReady");
                         }
 
                         @Override
@@ -275,17 +273,17 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
 
                         @Override
                         public void onNoOpreationTimeout() {
-                            Log.e(i + "--viewholder", "onNoOpreationTimeout");
+                            Log.d(i + "--viewholder", "onNoOpreationTimeout");
                         }
 
                         @Override
                         public void onInfo(String s) {
-                            Log.e(i + "--viewholder", "onInfo--" + s);
+                            Log.d(i + "--viewholder", "onInfo--" + s);
                         }
 
                         @Override
                         public void onError(String s) {
-                            Log.e(i + "--viewholder", "onError--" + s);
+                            Log.d(i + "--viewholder", "onError--" + s);
                         }
 
                         @Override
@@ -310,17 +308,17 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
 
                         @Override
                         public void onDataChannelOpen() {
-                            Log.e(i + "--viewholder", "onDataChannelOpen");
+                            Log.d(i + "--viewholder", "onDataChannelOpen");
                         }
 
                         @Override
                         public void onDataChannelClose() {
-                            Log.e(i + "--viewholder", "onDataChannelClose");
+                            Log.d(i + "--viewholder", "onDataChannelClose");
                         }
 
                         @Override
                         public void onDataChannelMessage(String s) {
-                            Log.e(i + "--viewholder", "onDataChannelMessage--" + s);
+                            Log.d(i + "--viewholder", "onDataChannelMessage--" + s);
                         }
 
                         @Override

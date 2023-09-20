@@ -4,19 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="40dp"
     android:background="@color/colorTransparentDark">
 
-    <TextView
-        android:id="@+id/text_state_rtt"
+    <include
+        android:id="@+id/layout_statics"
+        layout="@layout/layout_statics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:text="RTT"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/text_state_rtt"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="15dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:text="RTT"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,7 +47,7 @@
 
             <TextView
                 android:id="@+id/room_id"
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="TextView"
@@ -50,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:width="300dp"
+                android:width="250dp"
                 android:background="@drawable/hight_light_button"
                 android:text="@string/ui_menu_close"
                 android:textColor="@android:color/white"
@@ -62,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:width="300dp"
+                android:width="250dp"
                 android:background="@drawable/hight_light_button"
                 android:onClick="onMenuInfo"
                 android:text="@string/ui_menu_info"
@@ -75,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:width="300dp"
+                android:width="250dp"
                 android:background="@drawable/hight_light_button"
                 android:onClick="onToggleGamepadMappingMode"
                 android:text="@string/ui_menu_direct_gamepad_mode"
@@ -89,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:width="300dp"
+                android:width="250dp"
                 android:background="@drawable/hight_light_button"
                 android:onClick="onMenuPlayerList"
                 android:text="@string/ui_menu_player_list"
@@ -102,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:width="300dp"
+                android:width="250dp"
                 android:background="@drawable/hight_light_button"
                 android:onClick="onDapdMapping1"
                 android:text="@string/ui_menu_dpad_mode_1"
@@ -116,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:width="300dp"
+                android:width="250dp"
                 android:background="@drawable/hight_light_button"
                 android:onClick="onDapdMapping2"
                 android:text="@string/ui_menu_dpad_mode_1"
@@ -130,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:width="300dp"
+                android:width="250dp"
                 android:background="@drawable/hight_light_button"
                 android:onClick="onJoystickMapping1"
                 android:text="@string/ui_menu_joystick_mode_1"
@@ -144,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:width="300dp"
+                android:width="250dp"
                 android:background="@drawable/hight_light_button"
                 android:onClick="onJoystickMapping2"
                 android:text="@string/ui_menu_joystick_mode_2"
@@ -153,12 +164,36 @@
                 android:visibility="gone" />
 
             <Button
+                android:id="@+id/menu_button_livestreaming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:width="250dp"
+                android:background="@drawable/hight_light_button"
+                android:text="@string/ui_menu_button_livestreaming"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/menu_button_aichat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:width="250dp"
+                android:background="@drawable/hight_light_button"
+                android:text="@string/ui_menu_button_aichat"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <Button
                 android:id="@+id/menu_button_exit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:width="300dp"
+                android:width="250dp"
                 android:background="@drawable/hight_light_button"
                 android:text="@string/ui_menu_exit"
                 android:textColor="@android:color/white"
@@ -314,7 +349,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:width="300dp"
+            android:width="250dp"
             android:background="@drawable/hight_light_button"
             android:onClick="onMenuList"
             android:text="返回菜单"

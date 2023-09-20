@@ -60,6 +60,8 @@
     <string name="ui_menu_dpad_mode_1">Dapd Mode 1 %1$s</string>
     <string name="ui_menu_dpad_mode_2">Dpad Mode 2 %1$s</string>
     <string name="ui_menu_mode_current">(Current)</string>
+    <string name="ui_menu_button_livestreaming">LiveStreaming</string>
+    <string name="ui_menu_button_aichat">AiChat</string>
     <string name="ui_alert_quit">Are you sure exit？</string>
     <string name="ui_interactive_dialog_title">InterActive Mode</string>
     <string name="ui_interactive_dialog_role">Role</string>
@@ -76,4 +78,20 @@
     <string name="ui_setup_livestreaming_title">Live Setup</string>
     <string name="ui_setup_livestreaming_path">Streaming Path</string>
     <string name="ui_setup_livestreaming_key">Streaming Key</string>
+    <string name="ui_setup_livestreaming_stop">Stop</string>
+    <string name="ui_setup_livestreaming_empty_path">Please setup streaming path.</string>
+    <string name="ui_setup_livestreaming_starting">Start live streaming.</string>
+    <string name="ui_setup_livestreaming_stoping">Stop live streaming.</string>
+    <string name="ui_media_video">Open Camera</string>
+    <string name="ui_media_mic">Open Mic</string>
+    <string name="ui_statics_name_rtt">RTT</string>
+    <string name="ui_statics_name_biterate">Bitrate</string>
+    <string name="ui_statics_name_decode_fps">Fps</string>
+    <string name="ui_statics_name_packgelost">Lost</string>
+    <string name="ui_statics_name_server_capture">Capture</string>
+    <string name="ui_statics_name_server_render">Render</string>
+    <string name="ui_statics_name_server_encoder">Encoder</string>
+    <string name="ui_button_aichat_send">Send</string>
+    <string name="ui_button_aichat_input_hit">Say hi~</string>
+    <string name="ui_button_aichat_recode">Press Start Recode</string>
 </resources>

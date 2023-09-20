@@ -31,4 +31,8 @@
         <item name="android:textColor">#fff</item>
         <item name="android:background">@drawable/cloudlark_corners_dark</item>
     </style>
+
+    <style name="AiVoiceHintStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#fff</item>
+    </style>
 </resources>
