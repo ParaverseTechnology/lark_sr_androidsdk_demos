@@ -874,7 +874,7 @@ public class RtcActivity extends AppCompatActivity {
          */
         @Override
         public void onDataChannelMessage(String msg) {
-            Log.d(TAG, "onDataChannelMessage str" + msg);
+            Log.d(TAG, "onDataChannelMessage str " + msg);
         }
 
         /**

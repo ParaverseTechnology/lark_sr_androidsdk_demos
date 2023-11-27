@@ -17,8 +17,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.pxy.larkcore.CloudlarkManager;
 import com.pxy.larkcore.request.AppListItem;
@@ -29,7 +27,6 @@ import com.pxy.larkcore.request.PageInfo;
 import com.pxy.larkcore.request.ScheduleTaskManager;
 import com.pxy.lib_sr.RtcClient;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -124,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
         mSetupDialog = new SetupDialog(this, new SetupDialogCallback());
 
         CloudlarkManager.init(this, CloudlarkManager.APP_TYPE_SR, BuildConfig.tvMode);
-        String sdkId = "28c2eb1d50e14105b005940dc80588d1";
+
+        String sdkId = "Your sdk id";
         CloudlarkManager.initSdkAuthorization(this, sdkId);
 
 //        Log.d(TAG, "native sdk id " + sdkId);
@@ -132,29 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
         // 初始化
         init();
-
-        /*
-        msgRecyclerView = (RecyclerView)findViewById(R.id.test_msg_recycler_view);
-
-        adapter = new AiChatAdapter();
-
-        //创建MsgAdapter的实例并将数据传入到MsgAdapter的构造函数中
-        msgRecyclerView.setAdapter(adapter);
-
-        AiChatMsg msg1=new AiChatMsg("Hello guy.",AiChatMsg.TYPE_RECEIVED);
-        msgList.add(msg1);
-        AiChatMsg msg2=new AiChatMsg("Hello.Who is that?",AiChatMsg.TYPE_SENT);
-        msgList.add(msg2);
-        AiChatMsg msg3=new AiChatMsg("This is Tom!",AiChatMsg.TYPE_RECEIVED);
-        msgList.add(msg3);
-        adapter.fresh(msgList);
-
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        msgRecyclerView.setLayoutManager(layoutManager);
-
-        // msgRecyclerView.setHasFixedSize(true);
-         */
 
         // check permission
         if (!PermissionHelper.hasRequiredPermissions(this)) {
