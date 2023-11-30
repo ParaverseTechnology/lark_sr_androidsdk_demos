@@ -177,6 +177,15 @@
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <EditText
+            android:id="@+id/edit_text_inputcloud"
+            android:imeOptions="flagNoExtractUi"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_gravity="left"
+            android:inputType="text"
+            ></EditText>
+
         <LinearLayout
             android:id="@+id/control_bar"
             android:layout_width="match_parent"

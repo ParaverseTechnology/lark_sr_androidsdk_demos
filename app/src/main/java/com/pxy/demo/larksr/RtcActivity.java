@@ -4,18 +4,25 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.InputEvent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +31,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +63,8 @@ import com.pxy.demo.larksr.inputs.VCursorHandler;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,6 +185,10 @@ public class RtcActivity extends AppCompatActivity {
     private ImageButton mMicButton = null;
      */
 
+    private EditText mEditText;
+    private boolean mInputStart = false;
+    private boolean mSoftKeyboardShown = false;
+
     private int strect = 0;
 
     // 防止重新创建 activity.
@@ -247,6 +263,54 @@ public class RtcActivity extends AppCompatActivity {
         mServerEncoderDelay = findViewById(R.id.textView_statics_serverEncoderDelay);
 
         mTestCaptureImageView = findViewById(R.id.textureView_test_capture);
+
+        mEditText = findViewById(R.id.edit_text_inputcloud);
+
+        mEditText.setOnKeyListener((view, keyCode, keyEvent) -> {
+            if (keyEvent.getAction() != KeyEvent.ACTION_UP) {
+                return false;
+            }
+            Log.d(TAG, "on key up " + keyCode);
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                hideSoftKeyboard(mEditText);
+                mEditText.setText("");
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_DEL) {
+                Log.d(TAG, "on keycode del " + mEditText.getText().toString());
+                if (!mInputStart && mRtcClient != null) {
+                    Log.d(TAG, "send del " + mEditText.getText().toString());
+                    mRtcClient.sendKeyDown(WindowsKeyCodes.KEYCODE_DEL, false);
+                    mRtcClient.sendKeyUp(WindowsKeyCodes.KEYCODE_DEL);
+                    // send key delete
+                    return false;
+                }
+                return false;
+            }
+            return false;
+        });
+
+        mEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mInputStart = true;
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String changed = charSequence.subSequence(i, i + i2).toString();
+                Log.d(TAG, "onTextChanged " + changed);
+                if (!changed.equals("") && mRtcClient != null) {
+                    mRtcClient.sendInputText(changed);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                mInputStart = false;
+            }
+        });
+
+
 
         /**
          * open media > next version
@@ -443,6 +507,7 @@ public class RtcActivity extends AppCompatActivity {
         if (mRtcClient != null) {
             mRtcClient.setPause(true);
             mRtcClient.setAudioEnable(false);
+            mRtcClient.setVideoEnable(false);
         }
     }
 
@@ -453,6 +518,7 @@ public class RtcActivity extends AppCompatActivity {
         if (mRtcClient != null) {
             mRtcClient.setPause(false);
             mRtcClient.setAudioEnable(true);
+            mRtcClient.setVideoEnable(true);
         }
     }
 
@@ -468,6 +534,11 @@ public class RtcActivity extends AppCompatActivity {
             mGesture.clearListener();
         }
         mTouchPointer = null;
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     /**
@@ -893,6 +964,11 @@ public class RtcActivity extends AppCompatActivity {
         @Override
         public void onAppRequestInput(boolean enable) {
             Log.d(TAG, "onAppRequestInput " + enable);
+            if (enable) {
+                showSoftKeyboard(mEditText);
+            } else {
+                hideSoftKeyboard(mEditText);
+            }
         }
 
         /**
@@ -1121,6 +1197,8 @@ public class RtcActivity extends AppCompatActivity {
         mIsControlBarToggle = toggle;
     }
 
+
+
     /**
      * 缩放画面。 适应屏幕大小，，完全显示内容，
      */
@@ -1257,8 +1335,12 @@ public class RtcActivity extends AppCompatActivity {
         return false;
     }
 
-    @Override
+   @Override
     public boolean dispatchKeyEvent(KeyEvent keyEvent) {
+        if (mSoftKeyboardShown) {
+            return super.dispatchKeyEvent(keyEvent);
+        }
+
         // handle local operate
         if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK || keyEvent.getKeyCode() == KeyEvent.KEYCODE_BUTTON_SELECT) {
             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
@@ -1268,7 +1350,7 @@ public class RtcActivity extends AppCompatActivity {
                     showMenu();
 //                    finish();
                 }
-                return true;
+                return false;
             } else {
                 return super.dispatchKeyEvent(keyEvent);
             }
@@ -1462,10 +1544,13 @@ public class RtcActivity extends AppCompatActivity {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private void showMenu() {
         runOnUiThread(() -> {
-            mShowMenu = true;
-            mMenu.setVisibility(View.VISIBLE);
-            mMenu.setFocusable(true);
-            findViewById(R.id.menu_button_back).requestFocus();
+            // showSoftKeyboard(mEditText);
+            NewCapture();
+
+//            mShowMenu = true;
+//            mMenu.setVisibility(View.VISIBLE);
+//            mMenu.setFocusable(true);
+//            findViewById(R.id.menu_button_back).requestFocus();
         });
     }
 
@@ -1558,6 +1643,32 @@ public class RtcActivity extends AppCompatActivity {
         }
     };
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    /// handle keyboard text input
+    private void showSoftKeyboard(View view) {
+        runOnUiThread(() -> {
+            Log.d(TAG, "show soft keyboard");
+            InputMethodManager imm = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                view.requestFocus();
+                imm = getSystemService(InputMethodManager.class);
+                imm.showSoftInput(view, 0);
+                mSoftKeyboardShown = true;
+            } else {
+                Log.w(TAG, "not support");
+            }
+        });
+    }
+    private void hideSoftKeyboard(View view) {
+        runOnUiThread(() -> {
+            InputMethodManager imm = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                imm = getSystemService(InputMethodManager.class);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                mSoftKeyboardShown = false;
+            }
+        });
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private void toastInner(int resId) {
         toastInner(getString(resId));
     }
@@ -1573,6 +1684,10 @@ public class RtcActivity extends AppCompatActivity {
     private void alertInnner(final String title, final String msg, boolean cancleAble,
                              DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative) {
         runOnUiThread(() -> {
+            if (isFinishing() || isDestroyed()) {
+                return;
+            }
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             if (title != null && !title.isEmpty()) {
                 builder.setTitle(title);
@@ -1589,5 +1704,62 @@ public class RtcActivity extends AppCompatActivity {
             }
             builder.create().show();
         });
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    boolean capturing  = false;
+    String assetImgUploadID = "1";
+    String xToken = "2";
+    // test
+    public void NewCapture() {
+        Log.d(TAG,  "start");
+
+        if (mRtcClient != null) {
+            mRtcClient.sendToAppDataChannel("111111111111111111112323232323232323232323232323fdsfsdafasfasfasfasfasfasfasfasdfasfasfsa111111111111111111112323232323232323232323232323fdsfsdafasfasfasfasfasfasfasfasdfasfasfsa111111111111111111112323232323232323232323232323fdsfsdafasfasfasfasfasfasfasfasdfasfasfsa");
+        }
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE_SECURE);
+        capturing=true;
+        captureLanucher.launch(takePictureIntent);
+
+        Log.i(TAG, "DaemonService---->onCreate被调用，启动前台service");
+    }
+
+
+    public final ActivityResultLauncher<Intent> captureLanucher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Log.d(TAG,  "result " + result.getResultCode());
+                if (mRtcClient != null) {
+                    mRtcClient.sendToAppDataChannel("111111111111111111112323232323232323232323232323fdsfsdafasfasfasfasfasfasfasfasdfasfasfsa111111111111111111112323232323232323232323232323fdsfsdafasfasfasfasfasfasfasfasdfasfasfsa111111111111111111112323232323232323232323232323fdsfsdafasfasfasfasfasfasfasfasdfasfasfsa");
+                }
+                if (result.getResultCode() == RESULT_OK) {
+
+                    long startTime=System.currentTimeMillis();
+                    Intent rst = result.getData();
+                    Bitmap thumbnail = (Bitmap) rst.getExtras().get("data");
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                    String _base64 = Base64.encodeToString(bytes.toByteArray(), Base64.DEFAULT);
+                    long endTime=System.currentTimeMillis();
+                    Log.d("ConsumpTionTIme","计算base64耗时(ms)："+(endTime-startTime));
+
+                    if (assetImgUploadID != null&&xToken!=null) {
+                        PostEncodeImageData(assetImgUploadID, xToken, _base64);
+                    }
+                }
+                capturing=false;
+                try {
+                    Thread.sleep(2000);
+                    if (mRtcClient != null) {
+                        mRtcClient.sendToAppDataChannel("111111111111111111112323232323232323232323232323fdsfsdafasfasfasfasfasfasfasfasdfasfasfsa111111111111111111112323232323232323232323232323fdsfsdafasfasfasfasfasfasfasfasdfasfasfsa111111111111111111112323232323232323232323232323fdsfsdafasfasfasfasfasfasfasfasdfasfasfsa");
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+    );
+
+
+    public void PostEncodeImageData(String assetID, String token, String base64Data) {
+        Log.d(TAG,  "base64Data " + base64Data);
     }
 }

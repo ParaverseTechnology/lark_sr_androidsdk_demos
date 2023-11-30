@@ -26,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--            android:windowSoftInputMode="stateVisible|adjustResize"-->
         <activity android:name="com.pxy.demo.larksr.RtcActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape">

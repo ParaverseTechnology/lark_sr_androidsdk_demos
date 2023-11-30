@@ -1,5 +1,7 @@
 package com.pxy.demo.larksr.inputs;
 
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 import android.view.View;
 
@@ -14,7 +16,13 @@ public class TouchInput {
     private int mAppWidth = RtcClient.WIDTH;
     private int mAppHeight = RtcClient.HEIGHT;
 
+    private HandlerThread mHandlerThread;
+    private Handler mHandler;
+
     public TouchInput() {
+        mHandlerThread = new HandlerThread("touch_input_thread");
+        mHandlerThread.start();
+        mHandler = new Handler(mHandlerThread.getLooper());
     }
 
     public void setAppSize(int width, int height) {
@@ -44,36 +52,45 @@ public class TouchInput {
                 break;
             // 单指点击事件。单指离开屏幕并且未出发移动事件时触发。
             case Gesture.SINGLE_FINGER_TAP:
-                Log.v(TAG, "SINGLE_FINGER_TAP");
+                Log.v(TAG, "SINGLE_FINGER_TAP ");
                 rtcClient.sendMouseMove(x, y, rx, ry);
                 // 3.1.1.0 修改
-                rtcClient.sendMouseDown(x, y, ClientInput.MouseKey.MOUSE_KEY_LEFT);
-                rtcClient.sendMouseUp(x, y, ClientInput.MouseKey.MOUSE_KEY_LEFT);
+                mHandler.post(() -> {
+                    rtcClient.sendMouseDown(x, y, ClientInput.MouseKey.MOUSE_KEY_LEFT);
+                });
+                mHandler.postDelayed(() -> {
+                    rtcClient.sendMouseUp(x, y, ClientInput.MouseKey.MOUSE_KEY_LEFT);
+                }, 100);
                 break;
             // 单指触摸抬起
             case Gesture.SINGLE_FINGER_TAP_DOWN:
+                Log.v(TAG, "SINGLE_FINGER_TAP_DOWN ");
                 // 按下鼠标
                 rtcClient.sendMouseMove(x, y, rx, ry);
                 // 3.1.1.0 修改
                 rtcClient.sendMouseDown(x, y, ClientInput.MouseKey.MOUSE_KEY_LEFT);
                 break;
             case Gesture.SINGLE_FINGER_TAP_UP:
+                Log.v(TAG, "SINGLE_FINGER_TAP_UP ");
                 rtcClient.sendMouseMove(x, y, rx, ry);
                 // 3.1.1.0 修改
                 rtcClient.sendMouseUp(x, y, ClientInput.MouseKey.MOUSE_KEY_LEFT);
                 break;
             // 单指在屏幕上滑动时触发。
             case Gesture.SINGLE_FINGER_SWIPE:
+                Log.v(TAG, "SINGLE_FINGER_SWIPE ");
                 // 鼠标移动
                 boolean res = rtcClient.sendMouseMove(x, y, rx, ry);
                 break;
             // 单指在屏幕上滑动开始时触发。
             case Gesture.SINGLE_FINGER_SWIPE_START:
+                Log.v(TAG, "SINGLE_FINGER_SWIPE_START ");
                 // 3.1.1.0 修改
                 rtcClient.sendMouseDown(x, y, ClientInput.MouseKey.MOUSE_KEY_LEFT);
                 break;
             // 单指在屏幕上滑动离开屏幕时触发。
             case Gesture.SINGLE_FINGER_SWIPE_END:
+                Log.v(TAG, "SINGLE_FINGER_SWIPE_END ");
                 // 3.1.1.0 修改
                 rtcClient.sendMouseUp(x, y, ClientInput.MouseKey.MOUSE_KEY_LEFT);
                 break;
@@ -81,10 +98,14 @@ public class TouchInput {
             case Gesture.DOUBLE_FINGER_TAP:
                 // 右键单击
                 rtcClient.sendMouseMove(x, y, rx, ry);
-                // 3.1.1.0 修改
-                rtcClient.sendMouseDown(x, y, ClientInput.MouseKey.MOUSE_KEY_RIGHT);
-                // 3.1.1.0 修改
-                rtcClient.sendMouseUp(x, y, ClientInput.MouseKey.MOUSE_KEY_RIGHT);
+                mHandler.post(() -> {
+                    // 3.1.1.0 修改
+                    rtcClient.sendMouseDown(x, y, ClientInput.MouseKey.MOUSE_KEY_RIGHT);
+                });
+                mHandler.postDelayed(() -> {
+                    // 3.1.1.0 修改
+                    rtcClient.sendMouseUp(x, y, ClientInput.MouseKey.MOUSE_KEY_RIGHT);
+                }, 100);
                 break;
             //  双指单指在屏幕上滑动时触发。
             case Gesture.DOUBLE_FINGER_SWIPE:
@@ -116,9 +137,13 @@ public class TouchInput {
             case Gesture.TRIPLE_FINGER_TAP:
                 // 鼠标中键单击
                 rtcClient.sendMouseMove(x, y, rx, ry);
+                mHandler.post(() -> {
+                    rtcClient.sendMouseDown(x, y, ClientInput.MouseKey.MOUSE_KEY_MIDDLE);
+                });
+                mHandler.postDelayed(() -> {
+                    rtcClient.sendMouseUp(x, y, ClientInput.MouseKey.MOUSE_KEY_MIDDLE);
+                },  100);
                 // 3.1.1.0 修改
-                rtcClient.sendMouseDown(x, y, ClientInput.MouseKey.MOUSE_KEY_MIDDLE);
-                rtcClient.sendMouseUp(x, y, ClientInput.MouseKey.MOUSE_KEY_MIDDLE);
                 break;
             // 三指单指在屏幕上滑动时触发。
             case Gesture.TRIPLE_FINGER_SWIPE:
